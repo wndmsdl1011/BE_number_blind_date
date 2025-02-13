@@ -3,10 +3,7 @@ package com.example.BE_number_blind_date.member.Entity;
 import com.example.BE_number_blind_date.member.Role.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -14,7 +11,8 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "MEMBER")
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)  // 기본 생성자 제한, JPA만 접근할 수 있도록 설정
+@Setter
+@NoArgsConstructor
 public class Member {
 
     @Id
