@@ -1,7 +1,6 @@
 package com.example.BE_number_blind_date.Config;
 
 import com.example.BE_number_blind_date.member.Repository.RefreshRepository;
-import com.example.BE_number_blind_date.util.CustomLogoutFilter;
 import com.example.BE_number_blind_date.util.JWTFilter;
 import com.example.BE_number_blind_date.util.JWTUtil;
 import com.example.BE_number_blind_date.util.LoginFilter;
@@ -89,7 +88,7 @@ public class SecurityConfig {
         // 인가설정 *편의를 위해 일단 모두 허용
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/", "/auth/register", "/auth/login", "/reissue").permitAll()
+                        .requestMatchers("/", "/auth/register", "/auth/login", "/reissue", "/auth/logout").permitAll()
                         .anyRequest().authenticated());
 
         //JWTFilter 등록
@@ -101,8 +100,7 @@ public class SecurityConfig {
         http
                 .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration),jwtUtil, refreshRepository), UsernamePasswordAuthenticationFilter.class);    // addFilterAt 대신해서 작성하기 때문에 -> At
 
-        http
-                .addFilterBefore(new CustomLogoutFilter(jwtUtil, memberService), LogoutFilter.class);
+
 
         // 세션 설정
         http

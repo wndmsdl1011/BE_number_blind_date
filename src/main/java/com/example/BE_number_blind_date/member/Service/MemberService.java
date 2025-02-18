@@ -110,6 +110,7 @@ public class MemberService {
         return ResponseEntity.ok("로그인 성공");
     }
 
+    // 로그아웃
     @Transactional
     public ResponseEntity<?> logout(String refreshToken, HttpServletResponse response) {
         log.info("로그아웃 요청 - RefreshToken: {}",refreshToken);

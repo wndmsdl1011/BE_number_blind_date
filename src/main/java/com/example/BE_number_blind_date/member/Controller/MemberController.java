@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,4 +50,10 @@ public class MemberController {
         return loginResponse;
     }
 
+    // 로그아웃 로직
+    @PostMapping("/auth/logout")
+    public ResponseEntity<?> logout(@CookieValue(name = "refresh", required = false) String refreshToken,
+                                    HttpServletResponse response) {
+        return memberService.logout(refreshToken, response);
+    }
 }
