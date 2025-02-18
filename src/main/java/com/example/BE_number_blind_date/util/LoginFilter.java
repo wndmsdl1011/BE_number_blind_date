@@ -64,7 +64,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) {
 
-        System.out.println("✅ [LoginFilter] 로그인 성공 - Username: " + authentication.getName());
+        System.out.println("[LoginFilter] 로그인 성공 - Username: " + authentication.getName());
         // 유저 정보
         String username = authentication.getName();
 

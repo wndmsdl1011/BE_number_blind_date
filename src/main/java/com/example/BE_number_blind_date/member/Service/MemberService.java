@@ -10,6 +10,7 @@ import com.example.BE_number_blind_date.member.Dto.MemberResponse;
 import com.example.BE_number_blind_date.member.Entity.Member;
 import com.example.BE_number_blind_date.member.Repository.MemberRepository;
 import com.example.BE_number_blind_date.util.JWTUtil;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -106,5 +108,33 @@ public class MemberService {
 
         System.out.println("로그인한 사용자:" + dtoLogin.getEmail());
         return ResponseEntity.ok("로그인 성공");
+    }
+
+    @Transactional
+    public ResponseEntity<?> logout(String refreshToken, HttpServletResponse response) {
+        log.info("로그아웃 요청 - RefreshToken: {}",refreshToken);
+        
+        // RefreshToken이 DB에 존재하는지?
+        Optional<RefreshEntity> existingToken = refreshRepository.findByRefresh(refreshToken);
+
+        if (existingToken.isEmpty()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("잘못된 요청: Refresh Token이 존재하지 않습니다.");
+        }
+
+        // refreshToken 삭제
+        refreshRepository.deleteByRefresh(refreshToken);
+
+        // refreshToken 쿠키 삭제
+        Cookie cookie = new Cookie("refresh", null);
+        cookie.setMaxAge(0);
+        cookie.setPath("/");
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+        response.addCookie(cookie);
+
+        log.info("로그아웃 성공");
+        return ResponseEntity.ok("로그아웃 되었습니다.");
+
     }
 }

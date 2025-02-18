@@ -21,11 +21,10 @@ public class CustomUserDetailsService implements UserDetailsService {
         //DB에서 조회
         Member userdata = memberRepository.findByUserName(username);
 
-        if (userdata != null){
-            //UserDetails에 담아서 return하면 AutneticationManager가 검증 함
-            return new CustomUserDetails(userdata);
+        if (userdata == null){
+            throw  new UsernameNotFoundException("사용자를 찾을 수 없습니다.");
         }
-        return null;
+        return new CustomUserDetails(userdata);
     }
 
 
