@@ -1,6 +1,7 @@
 package com.example.BE_number_blind_date.member.Entity;
 
 import com.example.BE_number_blind_date.member.Role.Role;
+import com.example.BE_number_blind_date.post.Entity.Post;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.*;
@@ -33,8 +34,8 @@ public class Member {
     @Column(name = "GENDER", nullable = false, length = 2)
     private String gender; // "남성", "여성"
 
-    @Column(name = "BIRTH_DATE", nullable = false)
-    private LocalDateTime birthDate;
+    @Column(name = "USER_AGE", nullable = false)
+    private int age;
 
     @Column(name = "LOCATION", length = 30)
     private String location;
@@ -49,14 +50,19 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private Role role = Role.USER;
 
+
+    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Post post;
+
+
     @Builder
     public Member(String email, String userName, String userPassword, String gender,
-                  LocalDateTime birthDate, String location, Role role) {
+                  int age, String location, Role role) {
         this.email = email;
         this.userName = userName;
         this.userPassword = userPassword;
         this.gender = gender;
-        this.birthDate = birthDate;
+        this.age = age;
         this.location = location;
         this.role = role;
         this.createdAt = LocalDate.from(LocalDateTime.now());

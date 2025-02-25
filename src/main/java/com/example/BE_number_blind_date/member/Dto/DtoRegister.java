@@ -37,13 +37,30 @@ public class DtoRegister {
     @Pattern(regexp = "^(남성|여성)$", message = "성별은 '남성' 또는 '여성'만 입력 가능합니다.")
     private String gender;
 
-    @Past(message = "생년월일은 현재 날짜 이전이어야 합니다.")
-    @JsonProperty("birth_date")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate birthDate;
+    @Min(value = 18, message = "나이는 18세 이상이어야 합니다.")
+    @Max(value = 99, message = "나이는 99세 이하이어야 합니다.")
+    private int age;
 
     @NotBlank(message = "지역은 필수 항목입니다.")
     private String location;
 
     private Role role;
+
+    @NotBlank(message = "닉네임은 필수 항목입니다.")
+    private String nickname;
+
+    @NotBlank(message = "연락처는 필수 항목입니다.")
+    private String contact;
+
+    @NotBlank(message = "MBTI는 필수 항목입니다.")
+    @Size(min = 4, max = 4, message = "MBTI는 4자로 입력해야 합니다.")
+    private String mbti;
+
+    @Min(value = 100, message = "키는 100cm 이상이어야 합니다.")
+    @Max(value = 250, message = "키는 250cm 이하이어야 합니다.")
+    private int height;
+
+    private String hobby;
+
+    private String highlight;
 }
