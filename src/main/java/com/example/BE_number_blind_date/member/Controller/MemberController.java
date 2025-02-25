@@ -18,7 +18,6 @@ public class MemberController {
 
     private final MemberService memberService;
 
-
     //  회원가입
     @PostMapping("/auth/register")
     public ResponseEntity<?> submitSignUpForm(@RequestBody DtoRegister dtoRegister) {

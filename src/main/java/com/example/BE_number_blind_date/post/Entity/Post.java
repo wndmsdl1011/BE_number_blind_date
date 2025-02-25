@@ -23,11 +23,7 @@ public class Post {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-    @Column(name = "POST_NICKNAME", nullable = false, length = 30)
-    private String nickname;
 
-    @Column(name = "POST_CONTACT", nullable = false, length = 20)
-    private String contact;
 
     @Column(name = "POST_MBTI", nullable = false, length = 4)
     private String mbti;

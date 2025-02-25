@@ -34,6 +34,12 @@ public class Member {
     @Column(name = "GENDER", nullable = false, length = 2)
     private String gender; // "남성", "여성"
 
+    @Column(name = "USER_NICKNAME", nullable = false, length = 30)
+    private String nickname;
+
+    @Column(name = "USER_CONTACT", nullable = false, length = 20)
+    private String contact;
+
     @Column(name = "USER_AGE", nullable = false)
     private int age;
 
@@ -57,11 +63,13 @@ public class Member {
 
     @Builder
     public Member(String email, String userName, String userPassword, String gender,
-                  int age, String location, Role role) {
+                  String nickname, String contact, int age, String location, Role role) {
         this.email = email;
         this.userName = userName;
         this.userPassword = userPassword;
         this.gender = gender;
+        this.nickname = nickname;
+        this.contact = contact;
         this.age = age;
         this.location = location;
         this.role = role;

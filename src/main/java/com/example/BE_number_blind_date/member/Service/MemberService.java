@@ -10,6 +10,7 @@ import com.example.BE_number_blind_date.member.Dto.MemberResponse;
 import com.example.BE_number_blind_date.member.Entity.Member;
 import com.example.BE_number_blind_date.member.Repository.MemberRepository;
 import com.example.BE_number_blind_date.post.Entity.Post;
+import com.example.BE_number_blind_date.post.Repository.PostRepository;
 import com.example.BE_number_blind_date.util.JWTUtil;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -50,21 +51,13 @@ public class MemberService {
                     .userName(dtoRegister.getUserName())
                     .userPassword(encodedPassword)
                     .gender(dtoRegister.getGender())
+                    .nickname(dtoRegister.getNickname())
+                    .contact(dtoRegister.getContact())
                     .age(dtoRegister.getAge())
                     .location(dtoRegister.getLocation())
                     .role(Role.USER)
                     .build();
 
-            Post post = new Post();
-            post.setMember(member);
-            post.setNickname(dtoRegister.getNickname());
-            post.setContact(dtoRegister.getContact());
-            post.setMbti(dtoRegister.getMbti());
-            post.setHeight(dtoRegister.getHeight());
-            post.setHobby(dtoRegister.getHobby());
-            post.setHighlight(dtoRegister.getHighlight());
-
-            postRepository.sabe(post);
             memberRepository.save(member);
             
             // 회원가입 성공 Http 상태코드 (201 created)
