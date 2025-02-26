@@ -16,7 +16,17 @@ public enum HobbyCategory {
     MOVIES("영화 감상"),
     MUSIC("음악 감상"),
     COOKING("요리"),
-    TRAVEL("여행");
+    TRAVEL("여행"),
+    GAMING("게임"),
+    PHOTOGRAPHY("사진 촬영"),
+    DRAWING("미술/드로잉"),
+    WRITING("글쓰기"),
+    MEDITATION("명상"),
+    HIKING("등산"),
+    CYCLING("자전거 타기"),
+    DANCING("댄스"),
+    CAMPING("캠핑"),
+    INSTRUMENT("악기 연주");
 
 
     private final String name;
