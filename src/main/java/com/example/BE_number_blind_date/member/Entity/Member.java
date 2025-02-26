@@ -21,7 +21,7 @@ public class Member {
     @Column(name = "MEMBER_ID")
     private Long id;
 
-    @Column(name = "EMAIL", nullable = false, length = 30, unique = true)
+    @Column(name = "EMAIL", nullable = false, length = 50, unique = true)
     @Email(message = "올바른 이메일 형식이 아닙니다.")
     private String email;
 

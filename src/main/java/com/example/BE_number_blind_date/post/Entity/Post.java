@@ -5,6 +5,11 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
+
+import java.util.List;
+
+import static jakarta.persistence.CascadeType.PERSIST;
 
 
 @Entity
@@ -23,16 +28,17 @@ public class Post {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-
-
     @Column(name = "POST_MBTI", nullable = false, length = 4)
     private String mbti;
 
     @Column(name = "POST_HEIGHT", nullable = false, length = 3)
     private int height;
 
-    @Column(name = "POST_HOBBY", length = 30)
-    private String hobby;
+    @ElementCollection(targetClass = HobbyCategory.class, fetch = FetchType.LAZY)
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "POST_HOBBIES", joinColumns = @JoinColumn(name = "POST_ID"))
+    @Column(name = "HOBBY")
+    private List<HobbyCategory> hobbies;
 
     @Column(name = "POST_HIGHLIGHT")
     private String highlight;
