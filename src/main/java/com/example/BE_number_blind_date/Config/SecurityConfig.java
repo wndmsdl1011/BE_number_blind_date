@@ -88,7 +88,7 @@ public class SecurityConfig {
         // 인가설정 *편의를 위해 일단 모두 허용
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/", "/auth/register", "/auth/login", "/reissue", "/auth/logout","/post/create").permitAll()
+                        .requestMatchers("/", "/auth/register", "/auth/login", "/reissue", "/auth/logout","/post/create","/posts").permitAll()
                         .anyRequest().authenticated());
 
         //JWTFilter 등록
