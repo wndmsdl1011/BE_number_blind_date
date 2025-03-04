@@ -1,22 +1,27 @@
 package com.example.BE_number_blind_date.member.Controller;
 
 import com.example.BE_number_blind_date.member.Dto.DtoLogin;
+import com.example.BE_number_blind_date.member.Dto.DtoMyPage;
 import com.example.BE_number_blind_date.member.Dto.DtoRegister;
+import com.example.BE_number_blind_date.member.Entity.Member;
 import com.example.BE_number_blind_date.member.Service.MemberService;
+import com.example.BE_number_blind_date.util.JWTUtil;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 public class MemberController {
 
     private final MemberService memberService;
+    private final JWTUtil jwtUtil;
 
     //  회원가입
     @PostMapping("/auth/register")
@@ -54,5 +59,36 @@ public class MemberController {
     public ResponseEntity<?> logout(@CookieValue(name = "refresh", required = false) String refreshToken,
                                     HttpServletResponse response) {
         return memberService.logout(refreshToken, response);
+    }
+
+    // 마이페이지 로직
+    @GetMapping("/mypage")
+    public ResponseEntity<?> getMyPage(@RequestHeader(value = "Authorization", required = false) String token) {
+
+        token = token.replace("Bearer ", "");
+
+        if (jwtUtil.isExpired(token)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("토큰이 만료되었습니다.");
+        }
+
+        String userId = jwtUtil.getUsername(token);
+        Optional<Member> memberData = memberService.getMyPageInfo(userId);
+
+        if (memberData.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("사용자를 찾을 수 없습니다.");
+        }
+
+        Member member = memberData.get();
+
+        DtoMyPage response = new DtoMyPage(
+                member.getEmail(),
+                member.getUserName(),
+                member.getNickname(),
+                member.getGender(),
+                member.getContact(),
+                member.getAge(),
+                member.getLocation()
+        );
+        return ResponseEntity.ok(response);
     }
 }

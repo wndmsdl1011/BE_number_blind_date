@@ -1,23 +1,16 @@
 package com.example.BE_number_blind_date.member.Dto;
 
 import com.example.BE_number_blind_date.member.Role.Role;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.time.LocalDate;
 
 
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class DtoRegister {

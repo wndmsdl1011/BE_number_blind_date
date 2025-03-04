@@ -17,7 +17,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import com.example.BE_number_blind_date.member.Service.MemberService;
@@ -88,7 +87,7 @@ public class SecurityConfig {
         // 인가설정 *편의를 위해 일단 모두 허용
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/", "/auth/register", "/auth/login", "/reissue", "/auth/logout","/post/create","/posts").permitAll()
+                        .requestMatchers("/", "/auth/register", "/auth/login", "/reissue", "/auth/logout","/post/create","/posts","/mypage").permitAll()
                         .anyRequest().authenticated());
 
         //JWTFilter 등록

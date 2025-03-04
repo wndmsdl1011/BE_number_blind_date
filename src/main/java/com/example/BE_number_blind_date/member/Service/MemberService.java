@@ -1,16 +1,11 @@
 package com.example.BE_number_blind_date.member.Service;
 
-import com.example.BE_number_blind_date.member.Dto.DtoLogin;
+import com.example.BE_number_blind_date.member.Dto.*;
 import com.example.BE_number_blind_date.member.Entity.RefreshEntity;
 import com.example.BE_number_blind_date.member.Repository.RefreshRepository;
 import com.example.BE_number_blind_date.member.Role.Role;
-import com.example.BE_number_blind_date.member.Dto.DtoRegister;
-import com.example.BE_number_blind_date.member.Dto.ErrorResponse;
-import com.example.BE_number_blind_date.member.Dto.MemberResponse;
 import com.example.BE_number_blind_date.member.Entity.Member;
 import com.example.BE_number_blind_date.member.Repository.MemberRepository;
-import com.example.BE_number_blind_date.post.Entity.Post;
-import com.example.BE_number_blind_date.post.Repository.PostRepository;
 import com.example.BE_number_blind_date.util.JWTUtil;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -141,5 +136,11 @@ public class MemberService {
         log.info("로그아웃 성공");
         return ResponseEntity.ok("로그아웃 되었습니다.");
 
+    }
+
+    // 마이페이지 로직
+    public Optional<Member> getMyPageInfo(String userId) {
+        Optional<Member> member=  memberRepository.findByEmail(userId);
+        return member;
     }
 }
