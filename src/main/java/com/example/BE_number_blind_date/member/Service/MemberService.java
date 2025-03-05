@@ -143,4 +143,12 @@ public class MemberService {
         Optional<Member> member=  memberRepository.findByEmail(userId);
         return member;
     }
+
+    // 마이페이지 수정 로직
+    public Optional<Member> updateMypage(String userId) {
+
+        Optional<Member> memberdata=  memberRepository.findByEmail(userId);
+
+        return memberdata;
+    }
 }

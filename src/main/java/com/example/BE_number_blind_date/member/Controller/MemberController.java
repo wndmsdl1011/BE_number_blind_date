@@ -65,6 +65,7 @@ public class MemberController {
     @GetMapping("/mypage")
     public ResponseEntity<?> getMyPage(@RequestHeader(value = "Authorization", required = false) String token) {
 
+        log.info("마이페이지 조회!");
         token = token.replace("Bearer ", "");
 
         if (jwtUtil.isExpired(token)) {
@@ -89,6 +90,36 @@ public class MemberController {
                 member.getAge(),
                 member.getLocation()
         );
+
+        // 테스트용 콘솔출력
+        System.out.println(response.getEmail());
+        System.out.println(response.getAge());
+        System.out.println(response.getContact());
+        System.out.println(response.getNickName());
+        System.out.println(response.getLocation());
         return ResponseEntity.ok(response);
     }
+
+    // 마이페이지 수정 로직
+    @PutMapping("/user/profile")
+    public ResponseEntity<?> updateMypage(@RequestHeader(value = "Authorization", required = false) String token) {
+
+        token = token.replace("Bearer ", "");
+
+        if (jwtUtil.isExpired(token)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("토큰이 만료되었습니다.");
+        }
+
+        String userId = jwtUtil.getUsername(token);
+        Optional<Member> memberData = memberService.updateMypage(userId);
+
+        if (memberData.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("사용자를 찾을 수 없습니다.");
+        }
+
+
+
+        return ResponseEntity.ok("마이페이지 수정이 완료돠었습니다.");
+    }
+
 }
