@@ -145,10 +145,22 @@ public class MemberService {
     }
 
     // 마이페이지 수정 로직
-    public Optional<Member> updateMypage(String userId) {
+    public DtoMyPage updateMypage(String userId) {
 
         Optional<Member> memberdata=  memberRepository.findByEmail(userId);
 
-        return memberdata;
+        Member member = memberdata.get();
+
+        memberRepository.save(member);
+
+        return new DtoMyPage(
+                member.getEmail(),
+                member.getUserName(),
+                member.getNickname(),
+                member.getGender(),
+                member.getContact(),
+                member.getAge(),
+                member.getLocation()
+        );
     }
 }

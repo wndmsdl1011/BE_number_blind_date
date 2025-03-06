@@ -22,7 +22,6 @@ public class JWTUtil {
 
     public String getUsername(String token) {
         // parser() 메소드를 사용하여 내부 데이터를 확인함
-//        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("username", String.class);
         return parseClaims(token).get("username", String.class);
     }
 

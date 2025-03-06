@@ -8,7 +8,6 @@ import com.example.BE_number_blind_date.member.Service.MemberService;
 import com.example.BE_number_blind_date.util.JWTUtil;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +16,6 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-@Slf4j
 public class MemberController {
 
     private final MemberService memberService;
@@ -65,7 +63,6 @@ public class MemberController {
     @GetMapping("/mypage")
     public ResponseEntity<?> getMyPage(@RequestHeader(value = "Authorization", required = false) String token) {
 
-        log.info("마이페이지 조회!");
         token = token.replace("Bearer ", "");
 
         if (jwtUtil.isExpired(token)) {
@@ -91,12 +88,6 @@ public class MemberController {
                 member.getLocation()
         );
 
-        // 테스트용 콘솔출력
-        System.out.println(response.getEmail());
-        System.out.println(response.getAge());
-        System.out.println(response.getContact());
-        System.out.println(response.getNickName());
-        System.out.println(response.getLocation());
         return ResponseEntity.ok(response);
     }
 
@@ -111,15 +102,14 @@ public class MemberController {
         }
 
         String userId = jwtUtil.getUsername(token);
-        Optional<Member> memberData = memberService.updateMypage(userId);
+        DtoMyPage memberData = memberService.updateMypage(userId);
 
-        if (memberData.isEmpty()) {
+        if (memberData == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("사용자를 찾을 수 없습니다.");
         }
 
 
-
-        return ResponseEntity.ok("마이페이지 수정이 완료돠었습니다.");
+        return ResponseEntity.ok(memberData);
     }
 
 }
