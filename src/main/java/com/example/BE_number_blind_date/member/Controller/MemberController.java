@@ -8,6 +8,7 @@ import com.example.BE_number_blind_date.member.Service.MemberService;
 import com.example.BE_number_blind_date.util.JWTUtil;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 public class MemberController {
 
     private final MemberService memberService;
@@ -93,7 +95,8 @@ public class MemberController {
 
     // 마이페이지 수정 로직
     @PutMapping("/user/profile")
-    public ResponseEntity<?> updateMypage(@RequestHeader(value = "Authorization", required = false) String token) {
+    public ResponseEntity<?> updateMypage(@RequestHeader(value = "Authorization", required = false) String token, @RequestBody DtoMyPage dtoMyPage) {
+
 
         token = token.replace("Bearer ", "");
 
@@ -102,7 +105,7 @@ public class MemberController {
         }
 
         String userId = jwtUtil.getUsername(token);
-        DtoMyPage memberData = memberService.updateMypage(userId);
+        DtoMyPage memberData = memberService.updateMypage(userId, dtoMyPage);
 
         if (memberData == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("사용자를 찾을 수 없습니다.");

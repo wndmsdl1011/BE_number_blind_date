@@ -54,7 +54,7 @@ public class MemberService {
                     .build();
 
             memberRepository.save(member);
-            
+
             // 회원가입 성공 Http 상태코드 (201 created)
             return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new MemberResponse("회원가입 완료", HttpStatus.CREATED.value(), member.getEmail(), member.getUserName()));
@@ -94,12 +94,12 @@ public class MemberService {
             refreshEntity.setRefresh(refreshToken);
             refreshEntity.setExpiration("86400000");
             refreshRepository.save(refreshEntity);
-        } 
+        }
         // 기존 데이터가 없어 새로 저장
         else {
             refreshRepository.save(new RefreshEntity(member.getEmail(), refreshToken, "86400000"));
         }
-        
+
         // 프론트 보낼 accessToken 헤더에 저장
         response.setHeader("Authorization", "Bearer " + accessToken);
         // 쿠키에 refreshToken 저장
@@ -113,7 +113,7 @@ public class MemberService {
     @Transactional
     public ResponseEntity<?> logout(String refreshToken, HttpServletResponse response) {
         log.info("로그아웃 요청 - RefreshToken: {}",refreshToken);
-        
+
         // RefreshToken이 DB에 존재하는지?
         Optional<RefreshEntity> existingToken = refreshRepository.findByRefresh(refreshToken);
 
@@ -145,11 +145,17 @@ public class MemberService {
     }
 
     // 마이페이지 수정 로직
-    public DtoMyPage updateMypage(String userId) {
+    public DtoMyPage updateMypage(String userId, DtoMyPage dtoMyPage) {
 
-        Optional<Member> memberdata=  memberRepository.findByEmail(userId);
-
+        Optional<Member> memberdata =  memberRepository.findByEmail(userId);
         Member member = memberdata.get();
+
+        member.setUserName(dtoMyPage.getUserName());
+        member.setNickname(dtoMyPage.getNickname());
+        member.setGender(dtoMyPage.getGender());
+        member.setContact(dtoMyPage.getContact());
+        member.setAge(dtoMyPage.getAge());
+        member.setLocation(dtoMyPage.getLocation());
 
         memberRepository.save(member);
 
