@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class createPostDto {
+public class DtoCreatePost {
 
     private String nickname;
     private String contact;

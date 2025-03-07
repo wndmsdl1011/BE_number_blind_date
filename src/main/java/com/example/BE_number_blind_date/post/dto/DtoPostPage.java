@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 @Getter
 @AllArgsConstructor
-public class PostPage {
+public class DtoPostPage {
 
         private Long user_id;    // 등록한 유저 ID
         private String nickname;
@@ -21,7 +21,7 @@ public class PostPage {
         private String  hobbies;
         private String highlight;
 
-        public PostPage(Post post) {
+        public DtoPostPage(Post post) {
                 this.user_id = post.getMember().getId();
                 this.nickname = post.getMember().getNickname();
                 this.contact = post.getMember().getContact();

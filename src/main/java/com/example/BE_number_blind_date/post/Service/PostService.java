@@ -5,7 +5,7 @@ import com.example.BE_number_blind_date.member.Repository.MemberRepository;
 import com.example.BE_number_blind_date.post.Entity.Post;
 import com.example.BE_number_blind_date.post.Repository.PostRepository;
 import com.example.BE_number_blind_date.post.dto.PostPageResponse;
-import com.example.BE_number_blind_date.post.dto.createPostDto;
+import com.example.BE_number_blind_date.post.dto.DtoCreatePost;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +25,7 @@ public class PostService {
     private final MemberRepository memberRepository;
 
     @Transactional
-    public ResponseEntity<?> createPost(String username, createPostDto createPostDto) {
+    public ResponseEntity<?> createPost(String username, DtoCreatePost DtoCreatePost) {
 
         Member member = memberRepository.findByEmail(username)
                 .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
@@ -33,10 +33,10 @@ public class PostService {
 
         Post post = new Post();
         post.setMember(member);
-        post.setMbti(createPostDto.getMbti());
-        post.setHeight(createPostDto.getHeight());
-        post.setHobbies(Optional.ofNullable(createPostDto.getHobbies()).orElse(Collections.emptyList()));
-        post.setHighlight(createPostDto.getHighlight());
+        post.setMbti(DtoCreatePost.getMbti());
+        post.setHeight(DtoCreatePost.getHeight());
+        post.setHobbies(Optional.ofNullable(DtoCreatePost.getHobbies()).orElse(Collections.emptyList()));
+        post.setHighlight(DtoCreatePost.getHighlight());
 
         postRepository.save(post);
 

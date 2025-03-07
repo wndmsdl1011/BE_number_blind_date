@@ -2,7 +2,7 @@ package com.example.BE_number_blind_date.post.Controller;
 
 import com.example.BE_number_blind_date.post.Service.PostService;
 import com.example.BE_number_blind_date.post.dto.PostPageResponse;
-import com.example.BE_number_blind_date.post.dto.createPostDto;
+import com.example.BE_number_blind_date.post.dto.DtoCreatePost;
 import com.example.BE_number_blind_date.util.JWTUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +25,7 @@ public class PostController {
     // 포스트익 생성
     @PostMapping("/post/create")
     public ResponseEntity<?> createPost(@RequestHeader(value = "Authorization", required = false) String token,
-                                        @RequestBody createPostDto createPostDto) {
+                                        @RequestBody DtoCreatePost DtoCreatePost) {
 
         // 토큰이 없음 -> 로그인되어 있지 않음
         if (token == null || !token.startsWith("Bearer ")) {
@@ -35,7 +35,7 @@ public class PostController {
         String accessToken = token.replace("Bearer ", "");
         String username = jwtUtil.getUsername(accessToken);
 
-        ResponseEntity<?> response = postService.createPost(username, createPostDto);
+        ResponseEntity<?> response = postService.createPost(username, DtoCreatePost);
 
         return response;
     }
