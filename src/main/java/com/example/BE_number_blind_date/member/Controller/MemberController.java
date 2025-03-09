@@ -87,6 +87,7 @@ public class MemberController {
                 member.getGender(),
                 member.getContact(),
                 member.getAge(),
+                member.getMajor(),
                 member.getLocation()
         );
 

@@ -1,5 +1,6 @@
 package com.example.BE_number_blind_date.member.Dto;
 
+import com.example.BE_number_blind_date.member.Entity.Major;
 import com.example.BE_number_blind_date.member.Role.Role;
 import jakarta.validation.constraints.*;
 import jakarta.validation.constraints.Email;
@@ -39,6 +40,9 @@ public class DtoRegister {
     @Min(value = 18, message = "나이는 18세 이상이어야 합니다.")
     @Max(value = 99, message = "나이는 99세 이하이어야 합니다.")
     private int age;
+
+    @NotBlank(message = "전공은 필수 항목입니다.")
+    private Major major;
 
     @NotBlank(message = "지역은 필수 항목입니다.")
     private String location;

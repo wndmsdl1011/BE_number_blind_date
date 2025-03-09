@@ -49,10 +49,10 @@ public class MemberService {
                     .nickname(dtoRegister.getNickname())
                     .contact(dtoRegister.getContact())
                     .age(dtoRegister.getAge())
+                    .major(dtoRegister.getMajor())
                     .location(dtoRegister.getLocation())
                     .role(Role.USER)
                     .build();
-
             memberRepository.save(member);
 
             // 회원가입 성공 Http 상태코드 (201 created)
@@ -140,7 +140,7 @@ public class MemberService {
 
     // 마이페이지 로직
     public Optional<Member> getMyPageInfo(String userId) {
-        Optional<Member> member=  memberRepository.findByEmail(userId);
+        Optional<Member> member =  memberRepository.findByEmail(userId);
         return member;
     }
 
@@ -155,6 +155,7 @@ public class MemberService {
         member.setGender(dtoMyPage.getGender());
         member.setContact(dtoMyPage.getContact());
         member.setAge(dtoMyPage.getAge());
+        member.setMajor(dtoMyPage.getMajor());
         member.setLocation(dtoMyPage.getLocation());
 
         memberRepository.save(member);
@@ -166,6 +167,7 @@ public class MemberService {
                 member.getGender(),
                 member.getContact(),
                 member.getAge(),
+                member.getMajor(),
                 member.getLocation()
         );
     }

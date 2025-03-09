@@ -1,10 +1,12 @@
 package com.example.BE_number_blind_date.member.Entity;
 
 import com.example.BE_number_blind_date.member.Role.Role;
+import com.example.BE_number_blind_date.post.Entity.HobbyCategory;
 import com.example.BE_number_blind_date.post.Entity.Post;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.*;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -43,6 +45,10 @@ public class Member {
     @Column(name = "USER_AGE", nullable = false)
     private int age;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "USER_MAJOR",nullable = false)
+    private Major major;
+
     @Column(name = "LOCATION", length = 30)
     private String location;
 
@@ -63,7 +69,7 @@ public class Member {
 
     @Builder
     public Member(String email, String userName, String userPassword, String gender,
-                  String nickname, String contact, int age, String location, Role role) {
+                  String nickname, String contact, int age,Major major, String location, Role role) {
         this.email = email;
         this.userName = userName;
         this.userPassword = userPassword;
@@ -71,15 +77,11 @@ public class Member {
         this.nickname = nickname;
         this.contact = contact;
         this.age = age;
+        this.major = major;
         this.location = location;
         this.role = role;
         this.createdAt = LocalDate.from(LocalDateTime.now());
         this.updatedAt = LocalDate.from(LocalDateTime.now());
     }
 
-    public void updateProfile(String userName, String location) {
-        this.userName = userName;
-        this.location = location;
-        this.updatedAt = LocalDate.from(LocalDateTime.now());
-    }
 }

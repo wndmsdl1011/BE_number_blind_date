@@ -1,5 +1,6 @@
 package com.example.BE_number_blind_date.post.dto;
 
+import com.example.BE_number_blind_date.member.Entity.Major;
 import com.example.BE_number_blind_date.post.Entity.HobbyCategory;
 import com.example.BE_number_blind_date.post.Entity.Post;
 import lombok.AllArgsConstructor;
@@ -16,6 +17,7 @@ public class DtoPostPage {
         private String contact;
         private String gender;
         private int age;
+        private Major major;
         private String mbti;
         private int height;
         private String  hobbies;
