@@ -1,6 +1,7 @@
 package com.example.BE_number_blind_date.post.Controller;
 
 import com.example.BE_number_blind_date.post.Service.PostService;
+import com.example.BE_number_blind_date.post.dto.DtoPostDetail;
 import com.example.BE_number_blind_date.post.dto.PostPageResponse;
 import com.example.BE_number_blind_date.post.dto.DtoCreatePost;
 import com.example.BE_number_blind_date.util.JWTUtil;
@@ -49,6 +50,16 @@ public class PostController {
         PostPageResponse response = postService.getPosts(pageable);
 
         return ResponseEntity.ok(response);
+
+
+    }
+
+    // post 상세페이지
+    @GetMapping("/post/{postId}")
+    public ResponseEntity<DtoPostDetail> getPostDetail(@PathVariable Long postId) {
+
+        DtoPostDetail postdata = postService.getPostDetail(postId);
+        return ResponseEntity.ok(postdata);
 
 
     }

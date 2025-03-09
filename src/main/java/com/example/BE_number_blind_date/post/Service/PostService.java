@@ -4,6 +4,7 @@ import com.example.BE_number_blind_date.member.Entity.Member;
 import com.example.BE_number_blind_date.member.Repository.MemberRepository;
 import com.example.BE_number_blind_date.post.Entity.Post;
 import com.example.BE_number_blind_date.post.Repository.PostRepository;
+import com.example.BE_number_blind_date.post.dto.DtoPostDetail;
 import com.example.BE_number_blind_date.post.dto.PostPageResponse;
 import com.example.BE_number_blind_date.post.dto.DtoCreatePost;
 import lombok.RequiredArgsConstructor;
@@ -45,7 +46,7 @@ public class PostService {
         return ResponseEntity.ok("포스트잇 생성 완료");
     }
 
-    // 포스트익 목록 조회
+    // post 목록 조회
     public PostPageResponse getPosts(Pageable pageable) {
         Page<Post> posts = postRepository.findAll(pageable);
 
@@ -57,6 +58,16 @@ public class PostService {
         );
     }
 
+    // post 상세정보
+    public DtoPostDetail getPostDetail(Long postId) {
+        return postRepository.findById(postId)
+                .map(DtoPostDetail::new)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글을 찾을 수 없습니다."));
+    }
 
 
 }
+
+
+
+
