@@ -1,9 +1,9 @@
 package com.example.BE_number_blind_date.post.Controller;
 
 import com.example.BE_number_blind_date.post.Service.PostService;
-import com.example.BE_number_blind_date.post.dto.DtoPostDetail;
-import com.example.BE_number_blind_date.post.dto.PostPageResponse;
-import com.example.BE_number_blind_date.post.dto.DtoCreatePost;
+import com.example.BE_number_blind_date.post.Dto.DtoPostDetail;
+import com.example.BE_number_blind_date.post.Dto.PostPageResponse;
+import com.example.BE_number_blind_date.post.Dto.DtoCreatePost;
 import com.example.BE_number_blind_date.util.JWTUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,12 +1,10 @@
 package com.example.BE_number_blind_date.member.Entity;
 
 import com.example.BE_number_blind_date.member.Role.Role;
-import com.example.BE_number_blind_date.post.Entity.HobbyCategory;
 import com.example.BE_number_blind_date.post.Entity.Post;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.*;
-import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

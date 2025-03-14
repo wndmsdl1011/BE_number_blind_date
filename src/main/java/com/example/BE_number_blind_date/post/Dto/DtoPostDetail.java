@@ -1,15 +1,13 @@
-package com.example.BE_number_blind_date.post.dto;
+package com.example.BE_number_blind_date.post.Dto;
 
 
 import com.example.BE_number_blind_date.member.Entity.Major;
 import com.example.BE_number_blind_date.post.Entity.HobbyCategory;
 import com.example.BE_number_blind_date.post.Entity.Post;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter

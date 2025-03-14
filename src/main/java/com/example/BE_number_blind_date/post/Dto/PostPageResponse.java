@@ -1,4 +1,4 @@
-package com.example.BE_number_blind_date.post.dto;
+package com.example.BE_number_blind_date.post.Dto;
 
 import com.example.BE_number_blind_date.post.Entity.Post;
 import lombok.Getter;
