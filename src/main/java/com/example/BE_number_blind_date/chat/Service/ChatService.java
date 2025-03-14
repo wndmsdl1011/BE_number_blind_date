@@ -3,10 +3,8 @@ package com.example.BE_number_blind_date.chat.Service;
 import com.example.BE_number_blind_date.chat.Dto.DtoChatRoom;
 import com.example.BE_number_blind_date.member.Entity.Member;
 import com.example.BE_number_blind_date.member.Repository.MemberRepository;
-import com.example.BE_number_blind_date.message.Message;
 import com.example.BE_number_blind_date.chat.Repository.ChatRepository;
 import com.example.BE_number_blind_date.chat.Entity.Chat;
-import com.example.BE_number_blind_date.message.MessageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +16,6 @@ import java.util.Optional;
 public class ChatService {
 
     private final ChatRepository chatRepository;
-    private final MessageRepository messageRepository;
     private final MemberRepository memberRepository;
 
 
@@ -37,6 +34,7 @@ public class ChatService {
         if (existingChat.isPresent()) {
             throw new IllegalStateException("이미 존재하는 채팅방입니다.");
         }
+
         Chat chatRoom = Chat.builder()
                 .creator(owner)
                 .receiver(sender)

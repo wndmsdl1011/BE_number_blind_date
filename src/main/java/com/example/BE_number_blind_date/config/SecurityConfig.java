@@ -1,4 +1,4 @@
-package com.example.BE_number_blind_date.Config;
+package com.example.BE_number_blind_date.config;
 
 import com.example.BE_number_blind_date.member.Repository.RefreshRepository;
 import com.example.BE_number_blind_date.util.JWTFilter;

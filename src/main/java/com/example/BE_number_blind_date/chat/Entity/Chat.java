@@ -35,15 +35,4 @@ public class Chat {
     @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Message> messages = new ArrayList<>();
 
-
-
-
-
-    // 메시지 추가
-    public void addMessage(Message message) {
-        this.messages.add(message);
-        message.setChat(this);
-    }
-
-
 }

@@ -1,4 +1,4 @@
-package com.example.BE_number_blind_date.Config;
+package com.example.BE_number_blind_date.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
