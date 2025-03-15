@@ -2,6 +2,7 @@ package com.example.BE_number_blind_date.post.Dto;
 
 
 import com.example.BE_number_blind_date.member.Entity.Major;
+import com.example.BE_number_blind_date.member.Entity.Member;
 import com.example.BE_number_blind_date.post.Entity.HobbyCategory;
 import com.example.BE_number_blind_date.post.Entity.Post;
 import lombok.AllArgsConstructor;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class DtoPostDetail {
 
+    private String email;
     private String nickname;
     private String gender;
     private int age;
@@ -25,7 +27,8 @@ public class DtoPostDetail {
     private String highlight;
 
 
-    public DtoPostDetail(Post post) {
+    public DtoPostDetail(Post post, Member member) {
+        this.email = member.getEmail();
         this.nickname = post.getMember().getNickname();
         this.gender = post.getMember().getGender();
         this.age = post.getMember().getAge();

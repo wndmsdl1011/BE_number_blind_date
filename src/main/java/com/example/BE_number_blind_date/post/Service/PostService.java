@@ -61,7 +61,7 @@ public class PostService {
     // post 상세정보
     public DtoPostDetail getPostDetail(Long postId) {
         return postRepository.findById(postId)
-                .map(DtoPostDetail::new)
+                .map(post -> new DtoPostDetail(post, post.getMember())) // Member 정보 추가
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글을 찾을 수 없습니다."));
     }
 

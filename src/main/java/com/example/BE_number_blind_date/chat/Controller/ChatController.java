@@ -8,12 +8,14 @@ import com.example.BE_number_blind_date.chat.Service.ChatService;
 import com.example.BE_number_blind_date.util.JWTUtil;
 import lombok.RequiredArgsConstructor;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class ChatController {
@@ -29,6 +31,7 @@ public class ChatController {
     public ResponseEntity<?> createChatRoom(@RequestHeader(value = "Authorization", required = false) String token,      // 채팅을 요청한 사람
                                             @RequestParam String ownerEmail) {       // 방장
 
+        log.info(ownerEmail);
         token = token.replace("Bearer ", "");
 
         if (jwtUtil.isExpired(token)) {
