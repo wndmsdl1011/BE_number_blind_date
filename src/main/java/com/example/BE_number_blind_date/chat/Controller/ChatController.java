@@ -1,9 +1,8 @@
 package com.example.BE_number_blind_date.chat.Controller;
 
 
-import com.example.BE_number_blind_date.chat.Dto.DtoChatRoom;
-import com.example.BE_number_blind_date.chat.Entity.Chat;
-import com.example.BE_number_blind_date.member.Service.MemberService;
+import com.example.BE_number_blind_date.chat.Dto.DtoCreateChatRoom;
+import com.example.BE_number_blind_date.chat.Dto.DtoChatRoomList;
 import com.example.BE_number_blind_date.chat.Service.ChatService;
 import com.example.BE_number_blind_date.util.JWTUtil;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @Slf4j
 @RestController
@@ -23,7 +24,6 @@ public class ChatController {
     private final ChatService chatService;
     private final SimpMessagingTemplate simpMessagingTemplate;
     private final JWTUtil jwtUtil;
-    private final MemberService memberService;
 
 
     // 채팅방 생성 로직
@@ -44,9 +44,21 @@ public class ChatController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("사용자를 찾을 수 없습니다.");
         }
 
-        DtoChatRoom newchatroom = chatService.createChat(ownerEmail, senderEmail );
+        DtoCreateChatRoom newchatroom = chatService.createChat(ownerEmail, senderEmail );
         return ResponseEntity.ok(newchatroom);
 
     }
+
+    // 현재 참여하고 있는 채팅방 목록 조회
+    @GetMapping("/chat/rooms")
+    public ResponseEntity<List<DtoChatRoomList>> getAllChatRooms(@RequestHeader(value = "Authorization", required = false) String token) {
+        token = token.replace("Bearer ", "");   // 본인
+
+        String userEmail = jwtUtil.getUsername(token);
+        List<DtoChatRoomList> chatRooms = chatService.getChatRooms(userEmail);
+
+        return ResponseEntity.ok(chatRooms);
+    }
+
 
 }
