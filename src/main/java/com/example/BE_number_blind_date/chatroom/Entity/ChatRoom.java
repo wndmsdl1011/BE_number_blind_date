@@ -1,7 +1,7 @@
-package com.example.BE_number_blind_date.chat.Entity;
+package com.example.BE_number_blind_date.chatroom.Entity;
 
 import com.example.BE_number_blind_date.member.Entity.Member;
-import com.example.BE_number_blind_date.message.Message;
+import com.example.BE_number_blind_date.message.Entity.Message;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,7 +16,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Chat {
+public class ChatRoom {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +37,7 @@ public class Chat {
     private LocalDate createdDate;
 
 
-    @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "chatRoom", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Message> messages = new ArrayList<>();
 
 }

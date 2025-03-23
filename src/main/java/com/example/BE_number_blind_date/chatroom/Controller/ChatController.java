@@ -1,16 +1,15 @@
-package com.example.BE_number_blind_date.chat.Controller;
+package com.example.BE_number_blind_date.chatroom.Controller;
 
 
-import com.example.BE_number_blind_date.chat.Dto.DtoCreateChatRoom;
-import com.example.BE_number_blind_date.chat.Dto.DtoChatRoomList;
-import com.example.BE_number_blind_date.chat.Service.ChatService;
+import com.example.BE_number_blind_date.chatroom.Dto.DtoCreateChatRoom;
+import com.example.BE_number_blind_date.chatroom.Dto.DtoChatRoomList;
+import com.example.BE_number_blind_date.chatroom.Service.ChatService;
 import com.example.BE_number_blind_date.util.JWTUtil;
 import lombok.RequiredArgsConstructor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,7 +21,6 @@ import java.util.List;
 public class ChatController {
 
     private final ChatService chatService;
-    private final SimpMessagingTemplate simpMessagingTemplate;
     private final JWTUtil jwtUtil;
 
 
@@ -52,6 +50,8 @@ public class ChatController {
     // 현재 참여하고 있는 채팅방 목록 조회
     @GetMapping("/chat/rooms")
     public ResponseEntity<List<DtoChatRoomList>> getAllChatRooms(@RequestHeader(value = "Authorization", required = false) String token) {
+
+        log.info("token: " + token);
         token = token.replace("Bearer ", "");   // 본인
 
         String userEmail = jwtUtil.getUsername(token);

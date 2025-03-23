@@ -1,6 +1,5 @@
-package com.example.BE_number_blind_date.chat.Dto;
+package com.example.BE_number_blind_date.chatroom.Dto;
 
-import com.example.BE_number_blind_date.chat.Entity.Chat;
 import com.example.BE_number_blind_date.member.Entity.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

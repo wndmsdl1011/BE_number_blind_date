@@ -1,11 +1,11 @@
-package com.example.BE_number_blind_date.chat.Service;
+package com.example.BE_number_blind_date.chatroom.Service;
 
-import com.example.BE_number_blind_date.chat.Dto.DtoCreateChatRoom;
-import com.example.BE_number_blind_date.chat.Dto.DtoChatRoomList;
+import com.example.BE_number_blind_date.chatroom.Dto.DtoCreateChatRoom;
+import com.example.BE_number_blind_date.chatroom.Dto.DtoChatRoomList;
 import com.example.BE_number_blind_date.member.Entity.Member;
 import com.example.BE_number_blind_date.member.Repository.MemberRepository;
-import com.example.BE_number_blind_date.chat.Repository.ChatRepository;
-import com.example.BE_number_blind_date.chat.Entity.Chat;
+import com.example.BE_number_blind_date.chatroom.Repository.ChatRepository;
+import com.example.BE_number_blind_date.chatroom.Entity.ChatRoom;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,12 +34,12 @@ public class ChatService {
                 .orElseThrow(() -> new IllegalArgumentException("대화 상대를 찾을 수 없습니다."));
 
         // 중복 방인지??
-        Optional<Chat> existingChat = chatRepository.findByCreatorAndReceiver(owner, sender);
+        Optional<ChatRoom> existingChat = chatRepository.findByCreatorAndReceiver(owner, sender);
         if (existingChat.isPresent()) {
             throw new IllegalStateException("이미 존재하는 채팅방입니다.");
         }
 
-        Chat chatRoom = Chat.builder()
+        ChatRoom chatRoom = ChatRoom.builder()
                 .creator(owner)
                 .receiver(sender)
                 .createdDate(LocalDate.now())
